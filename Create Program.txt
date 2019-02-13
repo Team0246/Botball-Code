@@ -1,0 +1,60 @@
+﻿// Create Robot Code
+
+
+int main()
+{
+wait_for_light(0);
+create_connect();
+enable_
+while(get_create_lfcliff_amt()>x)
+{
+create_drive_direct(100,100);
+msleep(10);
+}
+while(get_create_lcliff_amt()<x)
+{
+create_drive_direct(100,-100);
+msleep(10);
+}
+while(get_create_distance()<x)
+{
+create_drive_direct(100,100);
+}
+enable_servos(0);
+set_servo_poition(0,x);
+
+
+// Functions
+
+
+void drive(int meters)
+{
+set_create_distance(0);
+while (abs(get_create_distance())<meters)
+{
+create_drive_direct(100,100);
+}
+create_stop();
+}
+
+
+void rturn(int degrees)
+{
+set_create_total_angle(0);
+while (abs(get_create_total_angle())<degrees)
+{
+create_drive_direct(100,-100);
+}
+create_stop();
+}
+
+
+void lturn(int degrees)
+{
+set_create_total_angle(0);
+while (abs(get_create_total_angle())<degrees)
+{
+create_drive_direct(-100,100);
+}
+create_stop();
+}
