@@ -1,0 +1,55 @@
+﻿#include <kipr/botball.h>
+
+
+void blackleft (int integer);
+void rturn90 (int degrees);
+void blackright (int integer);
+void drive (int inches);
+int main()
+{
+create_connect();
+rturn90(90);
+blackleft(1);
+rturn90(90);
+blackright(1);
+drive(12);
+create_stop();
+create_disconnect();
+return (0);
+}
+void blackleft (int integer)
+{
+while (get_create_lcliff_amt()>1950)
+{
+create_drive_direct(200,200);
+msleep(integer*10);
+create_stop();
+}
+}
+void rturn90 (int degrees)
+{
+        set_create_total_angle(0);
+        while (abs(get_create_total_angle())<1.033*degrees)
+        {
+        create_drive_direct(200,-200);
+        }
+        create_stop();
+        }
+void blackright (int integer)
+{
+        while (get_create_rcliff_amt()>1950)
+        {
+        create_drive_direct(200,200);
+        msleep(integer*10);
+        create_stop();
+        }
+        }
+void drive (int inches)
+{
+        set_create_distance(0);
+        while (abs(get_create_distance())<inches*27.636)
+        {
+        create_drive_direct(100,100);
+        }
+        create_stop();
+        }
