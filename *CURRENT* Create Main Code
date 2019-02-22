@@ -10,6 +10,7 @@ void openscoop (int integer);
 void armup (int integer);
 void armdown (int integer);
 void lturn90 (int degrees);
+void linetrack (int integer);
 int main()
 {
 create_connect();
@@ -24,19 +25,20 @@ closescoop(1);
 lturn90(90);
 blackleft(1);
 lturn90(90);
+linetrack(1);
 create_stop();
 create_disconnect();
 return (0);
 }
 void blackleft (int integer)
-    {
+        {
         while (get_create_lcliff_amt()>1950)
         {
         create_drive_direct(200,200);
         msleep(integer*10);
         create_stop();
         }
-    }
+        }
 void rturn90 (int degrees)
         {
         set_create_total_angle(0);
@@ -47,7 +49,7 @@ void rturn90 (int degrees)
         create_stop();
         }
 void blackright (int integer)
-    {
+        {
         while (get_create_rcliff_amt()>1950)
         {
         create_drive_direct(200,200);
@@ -56,7 +58,7 @@ void blackright (int integer)
         }
         }
 void drive (int inches)
-    {
+        {
         set_create_distance(0);
         while (abs(get_create_distance())<inches*27.636)
         {
@@ -72,14 +74,14 @@ void closescoop (int integer)
         disable_servo(3);
         }
 void openscoop (int integer)
-    {
+        {
         enable_servo(3);
         set_servo_position(3,948);
         msleep(integer*1000);
         disable_servo(3);
         }
 void armup (int integer)
-    {
+        {
         enable_servo(2);
         set_servo_position(2,1400);
         msleep(integer*1000);
@@ -98,6 +100,23 @@ void lturn90 (int degrees)
         while (abs(get_create_total_angle())<1.033*degrees)
         {
         create_drive_direct(-200,200);
+        }
+        create_stop();
+        }
+void linetrack (int integer)
+        {
+        while (get_create_rcliff_amt()>1950)
+        {
+        if (get_create_rfcliff_amt()>1950)
+        {
+        create_drive_direct(200,50);
+        msleep(integer*10);
+        }
+        else
+        {
+        create_drive_direct(50,200);
+        msleep(10);
+        }
         }
         create_stop();
         }
