@@ -131,14 +131,13 @@ void setPowerLines()
         motor(0, 50);
         motor(3, 50);
     }
-    //claw up
-   
+    clawup();
     reverse(10);
-    //claw down
+    clawdown();
     forward(20);
-    //claw up
+    clawup();
     forward(10);
-    //claw down
+    clawdown();
     left(90);
     forward(30);
     right(90);
