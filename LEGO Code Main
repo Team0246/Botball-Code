@@ -131,13 +131,13 @@ void setPowerLines()
         motor(0, 50);
         motor(3, 50);
     }
-    clawup();
+    clawUp();
     reverse(10);
-    clawdown();
+   clawDown();
     forward(20);
-    clawup();
+    clawUp();
     forward(10);
-    clawdown();
+    clawDown();
     left(90);
     forward(30);
     right(90);
@@ -168,13 +168,13 @@ void gasValve()
     */
 }
 
-void clawup()
+void clawUp()
 { set_servo_position(0,50);
     msleep(1000);
     set_servo_position(1,1500);
     msleep(1000);
 }
-void clawdown()
+void clawDown()
 {set_servo_position(1,200);
     msleep(1000);
     set_servo_position(0,1000);
