@@ -122,13 +122,17 @@ void collectWater()
 
 void setPowerLines()
 {
-    /*
+    /*set_servo_position(0,1000);
+    msleep(1000);
+    set_servo_position(1,200);
+    msleep(1000);
     while (analog(0) > 1600) //sense grey line
     {
         motor(0, 50);
         motor(3, 50);
     }
     //claw up
+   
     reverse(10);
     //claw down
     forward(20);
@@ -144,6 +148,7 @@ void setPowerLines()
 void gasValve()
 {
     /*
+    forward(10);
     while() //line follow in
     {
 
@@ -164,9 +169,21 @@ void gasValve()
     */
 }
 
+void clawup()
+{ set_servo_position(0,50);
+    msleep(1000);
+    set_servo_position(1,1500);
+    msleep(1000);
+}
+void clawdown()
+{set_servo_position(1,200);
+    msleep(1000);
+    set_servo_position(0,1000);
+    msleep(1000);}
 int main()
-{    
-    collectWater();
+{   
+
+   collectWater();
     setPowerLines();
     gasValve();
     
