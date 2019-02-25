@@ -44,13 +44,14 @@ void left(int deg)
 void reset()
 {
     enable_servos();
-    set_servo_position(0, 1400);
-    set_servo_position(1,1600);
+    set_servo_position(0, 1200);
+    set_servo_position(1,2000);
     disable_servos();
 }
 
 void scoop()
 {
+    /*
     enable_servos();
     motor(2, 50); // lift up sccop
     msleep(1000);
@@ -60,19 +61,20 @@ void scoop()
     msleep(1000); // skat arm back up
     set_servo_position(2,400); // lower arm   
     disable_servos();
+    */
+    
 }
 
 void waterCollection()
 {
-    forward(10);
+    reverse(10);
     scoop();
     int x = 0;
-    while (x < 4)
+    while (x < 3)
     {
-        forward(30);
+        reverse(30);
     	scoop();
         x = x + 1;
-        printf("collect water %d\n",x);
     }
 }
 
@@ -94,6 +96,7 @@ void untilColor(int color)
             motor(0, 75);
             motor(3, 75);
     	}
+        
     }
     else
     {
@@ -108,11 +111,11 @@ void untilColor(int color)
 void collectWater()
 {
     reset();
-    forward(10); // pass start line
+    forward(30); // pass start line
     untilColor(1); // go until see black line
     right(90); //turn right
     forward(65); // go to blue
-    left(90); // face blue
+    left(120); // face blue
     waterCollection(); // water collection
     untilWall(-1, 75); // go untill hit far wall
     right(90); // turn toward utility zone
@@ -120,20 +123,33 @@ void collectWater()
     left(180); // turn to face playing field
 }
 
-void setPowerLines()
-{
-    /*set_servo_position(0,1000);
+void clawUp()
+{   
+    set_servo_position(0,50);
     msleep(1000);
+    set_servo_position(1,1500);
+    msleep(1000);
+}
+void clawDown()
+{
     set_servo_position(1,200);
     msleep(1000);
+    set_servo_position(0,1000);
+    msleep(1000);
+}
+
+void setPowerLines()
+{
+    /*
     while (analog(0) > 1600) //sense grey line
     {
         motor(0, 50);
         motor(3, 50);
     }
+    */
     clawUp();
     reverse(10);
-   clawDown();
+    clawDown();
     forward(20);
     clawUp();
     forward(10);
@@ -141,50 +157,60 @@ void setPowerLines()
     left(90);
     forward(30);
     right(90);
-    */
+    
+}
+
+void pickUpValve()
+{
+    enable_servos();
+    set_servo_position(0,1800); //down 560
+    msleep(1000);
+    set_servo_position(1,1500); //open
+    msleep(1000);
+    
+    disable_servos();
+    forward(14);  
+    ao();
+    enable_servos();
+
+    set_servo_position(1,200); //close
+    msleep(1000);
+    int i = 1800;
+    while (i > 50)
+    {
+        set_servo_position(0,i); //up
+        i = i - .3;
+    }    
+    msleep(1000);
+    
+    disable_servos();
+    reverse(14);
+    ao();
+    enable_servos();
+    
+    set_servo_position(0,560); //down
+    msleep(1000);
+    disable_servos();
 }
 
 void gasValve()
 {
-    /*
     forward(10);
-    while() //line follow in
-    {
-
-    }
-    //pick up gas valve
-    left(180);
-    while() //drivw till wall hit
-    {
-
-    }
-    left(90);
-    while() //drivw till wall hit
-    {
-
-    }
-    //set down gas valve
-    //stop
-    */
+    msleep(1000);
+    pickUpValve();
+    left(180); //turn around
+    forward(50);
+    enable_servos();
+    set_servo_position(1,1500); //drop
+    disable_servos();
 }
 
-void clawUp()
-{ set_servo_position(0,50);
-    msleep(1000);
-    set_servo_position(1,1500);
-    msleep(1000);
-}
-void clawDown()
-{set_servo_position(1,200);
-    msleep(1000);
-    set_servo_position(0,1000);
-    msleep(1000);}
 int main()
-{   
-
-   collectWater();
+{    
+    //collectWater();
     setPowerLines();
-    gasValve();
+    //gasValve();
+    //pickUpValve();
     
     ao();
     return 0;
