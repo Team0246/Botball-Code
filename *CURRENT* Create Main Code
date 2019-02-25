@@ -30,6 +30,7 @@ openscoop(1);
 linetrack(1);
 armup(1);
 closescoop(1);
+camerafind(1);
 create_stop();
 create_disconnect();
 return (0);
@@ -137,7 +138,7 @@ void camerafind (int integer)
         camera_update();
         If (get_object_count(0) > 0)
         {
-        If (get_object_center_x(0,0) < 80)
+        If (get_object_center_x(0,0)>1)
         {
         while (abs(get_create_distance())<221.088)
         {
