@@ -10,23 +10,25 @@ void armup (int integer);
 void armdown (int integer);
 void lturn90 (int degrees);
 void linetrack (int integer);
-void camerafind (int integer);
+void openmed (int integer);
 int main()
 {
 create_connect();
 rturn90(90);
 blackleft(1);
 rturn90(90);
+blackright(1);
 openscoop(1);
 armdown(1);
-blackright(1);
 drive(18);
 closescoop(1);
 drive(3);
 lturn90(90);
 blackleft(1);
+armup(1);
+openmed(1);
 lturn90(90);
-openscoop(1);
+armdown(1);
 linetrack(1);
 armup(1);
 closescoop(1);
@@ -94,7 +96,7 @@ void armup (int integer)
 void armdown (int integer)
         {
         enable_servo(2);
-        set_servo_position(2,200);
+        set_servo_position(2,300);
         msleep(integer*250);
         disable_servo(2);
         }
@@ -109,7 +111,7 @@ void lturn90 (int degrees)
         }
 void linetrack (int integer)
         {
-        while (get_create_rcliff_amt()>1950)
+        while (abs(get_create_distance())<1800)
         {
         if (get_create_rfcliff_amt()>1950)
         {
@@ -124,49 +126,10 @@ void linetrack (int integer)
         }
         create_stop();
         }
-void camerafind (int integer)
-        {
-        set_create_distance(0);
-        while (abs(get_create_distance())<110.544)
-        {
-        create_drive_direct(-100,-100);
-        msleep(integer*10)
-        }
-        closescoop(1);
-        camera_open();
-        camera_update();
-        If (get_object_count(0) > 0)
-        {
-        If (get_object_center_x(0,0)>1)
-        {
-        while (abs(get_create_distance())<221.088)
-        {
-        create_drive_direct(-100,-100);
-        }
-        rturn90(90);
-        drive(12);
-        lturn90(90);
-        openscoop(1);
-        armup(1);
-        closescoop(1);
-        lturn90(90);
-        create_stop();
-        }
-        else
-        {
-        while (abs(get_create_distance())<221.088)
-        {
-        create_drive_direct(-100,-100);
-        }
-        openscoop(1);
-        armup(1);
-        closescoop(1);
-        while (get_create_lcliff_amt()>1950)
-        {
-        create_drive_direct(-200,-200);
-        msleep(10);
-        }
-        lturn90(90);
-        create_stop();
-        }
+void openmed (int integer)
+   		{
+        enable_servo(3);
+        set_servo_position(3,1300);
+        msleep(integer*250);
+        disable_servo(3);
         }
