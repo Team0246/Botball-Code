@@ -51,17 +51,34 @@ void reset()
 
 void scoop()
 {
-    /*
+    
     enable_servos();
-    motor(2, 50); // lift up sccop
+    set_servo_position(2,700);
     msleep(1000);
-    forward(10); // drive forward into water while scoop falls down
-    set_servo_position(2,1600); // lift arm
-    motor(2, 50); // lift up sccop
-    msleep(1000); // skat arm back up
-    set_servo_position(2,400); // lower arm   
+    
+    motor(2, 50);
+    msleep(500);
+    ao();
+    msleep(2000);
+    
+    //reverse(10); 
+    motor(2, -50);
+    msleep(500);
+    ao();
+    msleep(2000);
+    
+    set_servo_position(2,1200);
+    msleep(1000);
+    
+    motor(2, 50);
+    msleep(500);
+    ao();
+    msleep(2000);
+    
+    set_servo_position(2,400);
+    msleep(1000);
     disable_servos();
-    */
+    
     
 }
 
@@ -123,6 +140,21 @@ void collectWater()
     left(180); // turn to face playing field
 }
 
+void clawUp()
+{   
+    set_servo_position(0,50);
+    msleep(1000);
+    set_servo_position(1,1500);
+    msleep(1000);
+}
+void clawDown()
+{
+    set_servo_position(1,200);
+    msleep(1000);
+    set_servo_position(0,1000);
+    msleep(1000);
+}
+
 void setPowerLines()
 {
     /*
@@ -131,32 +163,48 @@ void setPowerLines()
         motor(0, 50);
         motor(3, 50);
     }
-    //claw up
+    */
+    clawUp();
     reverse(10);
-    //claw down
+    clawDown();
     forward(20);
-    //claw up
+    clawUp();
     forward(10);
-    //claw down
+    clawDown();
     left(90);
     forward(30);
     right(90);
-    */
+    
 }
 
 void pickUpValve()
 {
     enable_servos();
-    set_servo_position(0,560); //down
+    set_servo_position(0,1800); //down 560
     msleep(1000);
     set_servo_position(1,1500); //open
     msleep(1000);
-    forward(10);
-    set_servo_position(1,50); //close
+    
+    disable_servos();
+    forward(14);  
+    ao();
+    enable_servos();
+
+    set_servo_position(1,200); //close
     msleep(1000);
-    set_servo_position(0,100); //up
+    int i = 1800;
+    while (i > 50)
+    {
+        set_servo_position(0,i); //up
+        i = i - .3;
+    }    
     msleep(1000);
-    reverse(10);
+    
+    disable_servos();
+    reverse(14);
+    ao();
+    enable_servos();
+    
     set_servo_position(0,560); //down
     msleep(1000);
     disable_servos();
@@ -178,7 +226,10 @@ int main()
 {    
     //collectWater();
     //setPowerLines();
-    gasValve();
+    //gasValve();
+    //pickUpValve();
+    
+    scoop();
     
     ao();
     return 0;
