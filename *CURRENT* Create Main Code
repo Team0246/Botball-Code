@@ -15,20 +15,18 @@ void camerafind (int integer);
 int main()
 {
 create_connect();
-rturn90(90);
-blackleft(1);
-rturn90(90);
-blackright(1);
+rturn90(135);
 openscoop(1);
 armdown(1);
+rturn90(45);
 drive(18);
 closescoop(1);
 drive(3);
-lturn90(90);
+lturn90(67);
 blackleft(1);
 armup(1);
 openmed(1);
-lturn90(90);
+lturn90(110);
 armdown(1);
 linetrack(1);
 camerafind(1);
@@ -139,16 +137,18 @@ void camerafind (int integer)
         {
         camera_open();
         camera_update();
-        If (get_object_center_x(0,0) > 0*integer)
+        if (get_object_center_x(0,0) > 0*integer)
         {
         closescoop(1);
-        rturn90(90);
+        rturn90(55);
+        drive(8);
+        camera_close();
         create_stop();
         }
         else
         {
         openscoop(1);
-        drive(1);
+        camera_close();
         create_stop();
         }
         }
