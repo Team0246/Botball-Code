@@ -11,6 +11,7 @@ void armdown (int integer);
 void lturn90 (int degrees);
 void linetrack (int integer);
 void openmed (int integer);
+void camerafind (int integer);
 int main()
 {
 create_connect();
@@ -30,6 +31,7 @@ openmed(1);
 lturn90(90);
 armdown(1);
 linetrack(1);
+camerafind(1);
 armup(1);
 closescoop(1);
 create_stop();
@@ -127,9 +129,26 @@ void linetrack (int integer)
         create_stop();
         }
 void openmed (int integer)
-   		{
+   	{
         enable_servo(3);
         set_servo_position(3,1300);
         msleep(integer*250);
         disable_servo(3);
+        }
+void camerafind (int integer)
+        {
+        camera_open();
+        camera_update();
+        If (get_object_center_x(0,0) > 0*integer)
+        {
+        closescoop(1);
+        rturn90(90);
+        create_stop();
+        }
+        else
+        {
+        openscoop(1);
+        drive(1);
+        create_stop();
+        }
         }
