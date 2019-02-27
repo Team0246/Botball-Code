@@ -15,23 +15,21 @@ void camerafind (int integer);
 int main()
 {
 create_connect();
-rturn90(135);
 openscoop(1);
 armdown(1);
-rturn90(45);
+rturn90(208);
+blackleft(1);
 drive(18);
 closescoop(1);
-drive(3);
-lturn90(67);
+drive(2.5);
+lturn90(90);
 blackleft(1);
 armup(1);
-openmed(1);
-lturn90(110);
+openscoop(1);
+lturn90(90);
 armdown(1);
 linetrack(1);
 camerafind(1);
-armup(1);
-closescoop(1);
 create_stop();
 create_disconnect();
 return (0);
@@ -111,7 +109,7 @@ void lturn90 (int degrees)
         }
 void linetrack (int integer)
         {
-        while (abs(get_create_distance())<1800)
+        while (abs(get_create_distance())<1900)
         {
         if (get_create_rfcliff_amt()>1950)
         {
@@ -137,7 +135,7 @@ void camerafind (int integer)
         {
         camera_open();
         camera_update();
-        if (get_object_center_x(0,0) > 0*integer)
+        if (get_object_center_x(0,0)==80*integer)
         {
         closescoop(1);
         rturn90(55);
