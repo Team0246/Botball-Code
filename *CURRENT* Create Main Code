@@ -15,8 +15,8 @@ void camerafind (int integer);
 void back (int inches);
 int main()
 {
+wait_for_light(0);
 create_connect();
-msleep(3000);
 openscoop(1);
 armdown(1);
 rturn90(208);
@@ -153,13 +153,14 @@ void camerafind (int integer)
         {
         armup(1);
         closescoop(1);
-        drive(2);
+        drive(2.5);
+        back(3);
         camera_close();
         create_stop();
         }
         }
 void back (int inches)
-        {
+		{
         set_create_distance(0);
         while (abs(get_create_distance())<inches*27.636)
         {
