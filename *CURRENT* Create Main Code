@@ -138,24 +138,24 @@ void camerafind (int integer)
         {
         camera_open();
         camera_update();
-        if (get_object_count(0)>0*integer)
+        if (get_object_count(0)==0*integer)
         {
+        armup(1);
         closescoop(1);
+        drive(2.5);
+        back(3);
+        camera_close();
+        create_stop();
+        }
+        else
+        {
+	closescoop(1);
         rturn90(55);
         drive(8);
         armup(1);
         lturn90(10);
         drive(1);
         back(2);
-        camera_close();
-        create_stop();
-        }
-        else
-        {
-        armup(1);
-        closescoop(1);
-        drive(2.5);
-        back(3);
         camera_close();
         create_stop();
         }
