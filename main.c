@@ -131,7 +131,8 @@ void collectWater()
     forward(30); // pass start line
     untilColor(1); // go until see black line
     right(90); //turn right
-    forward(65); // go to blue
+    forward(65);// go to blue
+    pickUpValve();//get the value
     left(120); // face blue
     waterCollection(); // water collection
     untilWall(-1, 75); // go untill hit far wall
