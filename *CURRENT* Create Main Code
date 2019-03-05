@@ -16,6 +16,7 @@ void back (int inches);
 int main()
 {
 wait_for_light(0);
+shut_down_in(115);
 create_connect();
 openscoop(1);
 armdown(1);
@@ -153,7 +154,7 @@ void camerafind (int integer)
         {
         armup(1);
         closescoop(1);
-        drive(2.5);
+        drive(3);
         back(3);
         camera_close();
         create_stop();
