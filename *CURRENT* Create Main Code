@@ -15,12 +15,12 @@ void camerafind (int integer);
 void back (int inches);
 int main()
 {
-wait_for_light(0);
-shut_down_in(115);
+//wait_for_light(0);
+//shut_down_in(115);
 create_connect();
 openscoop(1);
 armdown(1);
-rturn90(208);
+rturn90(190);
 blackleft(1);
 drive(16.5);
 closescoop(1);
@@ -76,7 +76,7 @@ void drive (int inches)
 void closescoop (int integer)
         {
         enable_servo(3);
-        set_servo_position(3,1858);
+        set_servo_position(3,1865);
         msleep(integer*250);
         disable_servo(3);
         }
@@ -112,7 +112,7 @@ void lturn90 (int degrees)
         }
 void linetrack (int integer)
         {
-        while (abs(get_create_distance())<1950)
+        while (abs(get_create_distance())<2077)
         {
         if (get_create_rfcliff_amt()>1950)
         {
@@ -138,7 +138,7 @@ void camerafind (int integer)
         {
         camera_open();
         camera_update();
-        if (get_object_center_x(0,0)>80*integer)
+        if (get_object_count(0)>0*integer)
         {
         closescoop(1);
         rturn90(55);
@@ -154,7 +154,7 @@ void camerafind (int integer)
         {
         armup(1);
         closescoop(1);
-        drive(3);
+        drive(2.5);
         back(3);
         camera_close();
         create_stop();
