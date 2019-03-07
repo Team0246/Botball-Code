@@ -17,20 +17,20 @@ void sback (int inches);
 void sdrive (int inches);
 int main()
 {
-wait_for_light(0);
-shut_down_in(115);
+//wait_for_light(0);
+//shut_down_in(115);
 create_connect();
 sback(5);
-msleep(6000);
+//msleep(6000);
 sdrive(5);
 openscoop(1);
 armdown(1);
-rturn90(183);
+rturn90(190);
 blackleft(1);
 drive(16.5);
 closescoop(1);
 drive(2.5);
-lturn90(80);
+lturn90(82);
 blackleft(1);
 armup(1);
 openscoop(1);
@@ -117,7 +117,8 @@ void lturn90 (int degrees)
         }
 void linetrack (int integer)
         {
-        while (abs(get_create_distance())<2077)
+    	set_create_distance(0);
+        while (abs(get_create_distance())<1524)
         {
         if (get_create_rfcliff_amt()>1950)
         {
@@ -133,7 +134,7 @@ void linetrack (int integer)
         create_stop();
         }
 void openmed (int integer)
-   	{
+   		{
         enable_servo(3);
         set_servo_position(3,1300);
         msleep(integer*250);
@@ -159,7 +160,7 @@ void camerafind (int integer)
         drive(8);
         armup(1);
         lturn90(10);
-        drive(1.5);
+        drive(2.5);
         back(4);
         camera_close();
         create_stop();
