@@ -164,7 +164,7 @@ void collectWater()
     msleep(500);
     forward(30); // pass start line
     untilColor(1);// go until see black line
-    forward(1);
+    forward(3);
     right(90); //turn right
     forward(42); // go to blue
     pickUpValve();
