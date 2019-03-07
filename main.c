@@ -16,13 +16,14 @@ void reverse(int cm)
     int x = 88.8;
     while (-(gmpc(0))<(cm*x))
     {
-        motor(0, -50);
+        motor(0, -49.5);
         motor(3, -50);
     }
 }
 void right(int deg)
 {
     cmpc(0);
+    cmpc(3);
     int x = 10;
     while (gmpc(0)>-(deg*x))
     {
@@ -33,7 +34,7 @@ void right(int deg)
 void left(int deg)
 {
     cmpc(0);
-    int x = 10;
+    int x = 9.3;
     while (gmpc(0)<(deg*x))
     {
         motor(0, 50);
@@ -149,7 +150,7 @@ void pickUpValve()
     msleep(1000);
     
     disable_servos();
-    reverse(14);
+    reverse(7);
     ao();
     enable_servos();
     
@@ -164,17 +165,26 @@ void collectWater()
     msleep(500);
     forward(30); // pass start line
     untilColor(1);// go until see black line
-    forward(3);
+    forward(1);
     right(90); //turn right
     forward(42); // go to blue
     pickUpValve();
-    left(88); // face blue
+    left(95); // face blue
     //waterCollection(); // water collection
     //untilWall(-1, 75); // go untill hit far wall
-    reverse(160);
-    left(90); // turn toward utility zone
-    untilColor(1); //go until hit back wall
-    forward(10);
+    reverse(170);
+    left(90); // turn toward utility zone    
+    //untilColor(1); //go until hit back wall
+    forward(40);
+    ao();
+    
+    enable_servos();
+    set_servo_position(0,1400); //down 560
+    msleep(1000);
+    set_servo_position(1,1500); //open
+    msleep(1000);
+    disable_servos();
+    
     left(180); // turn to face playing field
 }
 
@@ -229,6 +239,16 @@ void gasValve()
 
 int main()
 {    
+    wait_for_light(1);
+    msleep(2000);
+    forward(10);
+    ao();
+    msleep(500);
+    ao();
+    
+    left(90);
+    ao();
+    msleep(500);
     collectWater();
     //setPowerLines();
     //gasValve();
