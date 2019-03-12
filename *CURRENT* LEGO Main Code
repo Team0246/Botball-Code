@@ -56,31 +56,13 @@ void scoop()
 {
     
     enable_servos();
-    
-    motor(2, 50);
+    motor(2,20);
+    msleep(100);
+    set_servo_position(3, 1800);
     msleep(500);
-    ao();
-    msleep(2000);
-    
-    //reverse(10); 
-    motor(2, -50);
+    set_servo_position(1,1900);
     msleep(500);
-    ao();
-    msleep(2000);
-    
-    set_servo_position(2,1200);
-    msleep(1000);
-    
-    motor(2, 50);
-    msleep(500);
-    ao();
-    msleep(2000);
-    
-    set_servo_position(2,400);
-    msleep(1000);
-    disable_servos();
-    
-    
+    disable_servos();    
 }
 
 void waterCollection()
@@ -146,6 +128,8 @@ void pickUpValve()
     {
         set_servo_position(0,i); //up
         i = i - .3;
+        motor(0, 5);
+        motor(3, 5);
     }    
     msleep(1000);
     
@@ -170,10 +154,10 @@ void collectWater()
     forward(42); // go to blue
     pickUpValve();
     left(95); // face blue
-    //waterCollection(); // water collection
+    waterCollection(); // water collection
     //untilWall(-1, 75); // go untill hit far wall
     reverse(170);
-    left(90); // turn toward utility zone    
+    left(110); // turn toward utility zone    
     //untilColor(1); //go until hit back wall
     forward(40);
     ao();
@@ -237,9 +221,8 @@ void gasValve()
     disable_servos();
 }
 
-int main()
-{    
-    wait_for_light(1);
+void start()
+{
     msleep(2000);
     forward(10);
     ao();
@@ -249,6 +232,12 @@ int main()
     left(90);
     ao();
     msleep(500);
+}
+
+int main()
+{    
+    //wait_for_light(1);
+    start();
     collectWater();
     //setPowerLines();
     //gasValve();
