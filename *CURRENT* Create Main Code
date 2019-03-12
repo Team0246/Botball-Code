@@ -25,7 +25,7 @@ sback(5);
 sdrive(5);
 openscoop(1);
 armdown(1);
-rturn90(190);
+rturn90(200);
 blackleft(1);
 drive(16.5);
 closescoop(1);
@@ -142,18 +142,38 @@ void openmed (int integer)
         }
 void camerafind (int integer)
         {
-        camera_open();
+    int iteration_count=0;
+    int update_errors=0;
+    camera_open_black();
+    while(iteration_count<20)
+    {
+     if(!camera_update())
+     {
+         update_errors++;
+         continue;
+     }
+     if(iteration_count>1000)
+     {
+         iteration_count=0;
+         camera_close();
+         camera_open_black();
+     }
         camera_update();
-        if (get_object_count(0)==0*integer)
+         printf ("number of reds is %d\n",get_object_count(0));
+    	msleep(100);
+        iteration_count++;
+    }
+    if (get_object_count(0)==0)
         {
         armup(1);
         closescoop(1);
         drive(3.5);
+        rturn90(5);
         back(3);
         camera_close();
         create_stop();
         }
-        else
+       if (get_object_count(0)>0)
         {
         closescoop(1);
         rturn90(55);
@@ -162,9 +182,10 @@ void camerafind (int integer)
         lturn90(10);
         drive(2.5);
         back(4);
-        camera_close();
         create_stop();
         }
+        
+    camera_close();
         }
 void back (int inches)
 		{
