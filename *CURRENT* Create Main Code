@@ -9,7 +9,7 @@ void openscoop (int integer);
 void armup (int integer);
 void armdown (int integer);
 void lturn90 (int degrees);
-void linetrack (int integer);
+void linetrack (int ticks);
 void openmed (int integer);
 void camerafind (int integer);
 void back (int inches);
@@ -27,7 +27,7 @@ int main()
 //shut_down_in(115);
 create_connect();
 sback(5);
-//msleep(6000);
+msleep(6000);
 sdrive(5);
 openscoop(1);
 armdown(1);
@@ -42,7 +42,7 @@ armup(1);
 openscoop(1);
 lturn90(90);
 armdown(1);
-linetrack(1);
+linetrack(1524);
 camerafind(1);
 create_stop();
 create_disconnect();
@@ -121,15 +121,15 @@ void lturn90 (int degrees)
         }
         create_stop();
         }
-void linetrack (int integer)
+void linetrack (int ticks)
         {
     	set_create_distance(0);
-        while (abs(get_create_distance())<1524)
+        while (abs(get_create_distance())<ticks*1)
         {
         if (get_create_rfcliff_amt()>1950)
         {
         create_drive_direct(150,50);
-        msleep(integer*10);
+        msleep(10);
         }
         else
         {
@@ -187,12 +187,19 @@ void camerafind (int integer)
         armup(1);
         lturn90(5);
         drive(2.5);
-        back(4);
-        bblackleft(1);
-        lturn90(137);
-        blackright(1);
-        blackright(1);
-        rturn90(90);
+        //back(3);
+        //bblackleft(1);
+        //lturn90(137);
+        //armdown(1);
+        //drive(11);
+        //openscoop(1);
+        //armup(1);
+        //drive(3);
+        //rturn90(90);
+        //back(1);
+        //openfirescoop(1);
+        //armdown(1);
+        //hclosescoop(1);
         create_stop();
         }
     	camera_close();
@@ -227,14 +234,14 @@ void sdrive (int inches)
 void openfirescoop (int integer)
 		{
         enable_servo(1);
-        set_servo_position(1,1948);
+        set_servo_position(1,1930);
         msleep(integer*250);
         disable_servo(1);
         }
 void closefirescoop (int integer)
 		{
         enable_servo(1);
-        set_servo_position(1,126);
+        set_servo_position(1,78);
         msleep(integer*250);
         disable_servo(1);
         }
