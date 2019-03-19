@@ -142,7 +142,7 @@ void linetrack (int ticks)
         create_stop();
         }
 void openmed (int integer)
-   	{
+   		{
         enable_servo(0);
         set_servo_position(0,1300);
         msleep(integer*250);
@@ -150,7 +150,7 @@ void openmed (int integer)
         }
 void camerafind (int integer)
         {
-   	int iteration_count=0;
+   		int iteration_count=0;
     	int update_errors=0;
     	camera_open_black();
     	while(iteration_count<20)
@@ -208,7 +208,7 @@ void camerafind (int integer)
     	camera_close();
         }
 void back (int inches)
-	{
+		{
         set_create_distance(0);
         while (abs(get_create_distance())<inches*27.636)
         {
@@ -217,7 +217,7 @@ void back (int inches)
         create_stop();
         }
 void sback (int inches)
-	{
+		{
         set_create_distance(0);
         while (abs(get_create_distance())<inches*27.636)
         {
@@ -226,7 +226,7 @@ void sback (int inches)
         create_stop();
         }
 void sdrive (int inches)
-	{
+		{
         set_create_distance(0);
         while (abs(get_create_distance())<inches*27.636)
         {
@@ -235,21 +235,21 @@ void sdrive (int inches)
         create_stop();
         }
 void openfirescoop (int integer)
-	{
+		{
         enable_servo(1);
         set_servo_position(1,1890);
         msleep(integer*250);
         disable_servo(1);
         }
 void closefirescoop (int integer)
-	{
+		{
         enable_servo(1);
         set_servo_position(1,26);
         msleep(integer*250);
         disable_servo(1);
         }
 void bblackleft (int integer)
-  	{
+  		{
         while (get_create_lcliff_amt()>1950)
         {
         create_drive_direct(-200,-200);
@@ -258,7 +258,7 @@ void bblackleft (int integer)
         }
         }
 void bblackright (int integer)
-  	{
+  		{
         while (get_create_rcliff_amt()>1950)
         {
         create_drive_direct(-200,-200);
@@ -269,7 +269,7 @@ void bblackright (int integer)
 void hclosefirescoop (int integer)
     	{
         enable_servo(1);
-        set_servo_position(1,1829);
+        set_servo_position(1,900);
         msleep(integer*250);
         disable_servo(1);
         }
@@ -288,9 +288,9 @@ void fopenscoop (int integer)
         disable_servo(0);
         }
 void farmdown (int integer)
-	{
+		{
         enable_servo(2);
-        set_servo_position(2,165);
+        set_servo_position(2,216);
         msleep(integer*250);
         disable_servo(2);
         }
