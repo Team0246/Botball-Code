@@ -83,6 +83,24 @@ void scoop()
     
 }
 
+void pipetracking()
+{
+cmpc(0);
+while (gmpc(0)>-20000)
+	{
+    if (analog(3)<2650)
+    	{
+        motor(0,-40);
+        motor(3,-50);
+    	}
+    else
+    	{
+        motor(0,-50);
+        motor(3,-40);
+    	}
+    }
+}
+
 void waterCollection()
 {
     reverse(10);
@@ -128,19 +146,25 @@ void untilColor(int color)
 
 void lineFollow()
 {
-    while(analog(2) < 1023)
+enable_servos();
+set_servo_position(1,1750);
+disable_servos();
+    while(analog(2) < 2200)
     {
-        if (analog(0) > 1600)
+        if (analog(0) > 1800)
         {
-            motor(0, -10);
-       		motor(3, -50);
+            motor(0, 30);
+       		motor(3, 40);
+            msleep(1);
         }
         else
         {
-            motor(0, -50);
-        	motor(3, -10);
+            motor(0, 40);
+        	motor(3, 30);
+            msleep(1);
         }
     }
+    ao();
 }
 
 void pickUpValve()
@@ -153,19 +177,28 @@ void pickUpValve()
     msleep(1000);
     set_servo_position(1,1500); //open
     msleep(1000);
-    forward(2);
 
-    set_servo_position(1,20); //close
+
+    set_servo_position(1,150); //close
     msleep(1000);
-    int i = 1800;
+    set_servo_position(0,1500);
+    msleep(100);
+    set_servo_position(0,1000);
+    msleep(100);
+    set_servo_position(0,700);
+    msleep(100);
+    set_servo_position(0,280);
+    msleep(100);
+/*    int i = 1800;
     while (i > 50)
     {
         set_servo_position(0,i); //up
         i = i - .3;
-        motor(0, 5);
-        motor(3, 5);
+        //motor(0, -5);
+        //motor(3, -5);
 
-    }    
+    }
+    */
     msleep(2000);
     
     disable_servos();
@@ -174,37 +207,38 @@ void pickUpValve()
     enable_servos();
     
     set_servo_position(0,560); //down
-    msleep(1000);
+    msleep(10);
     disable_servos();
 }
 
 void collectWater()
 {
-    reset();
+    //reset();
     msleep(500);
     forward(30); // pass start line
     untilColor(1);// go until see black line
-    forward(1);
+    forward(5);
     right(95); //turn right
     forward(20); // go to blue
+    lineFollow();
     pickUpValve();
     left(95); // face blue
     //waterCollection(); // water collection
     //untilWall(-1, 75); // go untill hit far wall
-    reverse(170);
-    left(110); // turn toward utility zone    
+    //reverse(170);
+    //left(110); // turn toward utility zone    
     //untilColor(1); //go until hit back wall
-    forward(40);
+    //forward(40);
     ao();
     
-    enable_servos();
-    set_servo_position(0,1400); //down 560
-    msleep(1000);
-    set_servo_position(1,1500); //open
-    msleep(1000);
-    disable_servos();
+    //enable_servos();
+    //set_servo_position(0,1400); //down 560
+    //msleep(1000);
+    //set_servo_position(1,1500); //open
+    //msleep(1000);
+    //disable_servos();
     
-    left(180); // turn to face playing field
+    //left(180); // turn to face playing field
 }
 
 void clawUp()
@@ -274,44 +308,12 @@ int main()
     //wait_for_light(1);
     start();
     collectWater();
+    pipetracking();
     //setPowerLines();
     //gasValve();
     //pickUpValve();
+    //lineFollow();
     
     ao();
     return 0;
 }
-
-//***************** Plan ****************
-/*
-Start in Start box facing firehouse
-Drive forward until black detected
-Pick up up water reclamation unit
-Turn right 90
-Drive forward 80 cm
-Turn right 90
-Start water collection
-Drive forward following blue line
-Stop when hit wall
-Turn right 90
-Drive forward until bumper hit on wall
-Turn left 90
-Set water down
-Drive forward until bumper hit on wall
-Turn left 90
-Drive until sense grey line
-Raise claw
-Drive backward x amount setting line
-Lower claw
-Drive forward x amount
-Raise claw
-Drive  forward x amount setting line
-Lower claw
-Drive forward using color sensor on orange gas valve
-Follow black line in
-Pick up gas valve
-Turn left 180
-Drive forward until wall hit
-Set down gas valve
-Stop
-*/
