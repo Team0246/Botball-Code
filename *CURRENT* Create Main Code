@@ -20,29 +20,31 @@ void closefirescoop (int integer);
 void bblackleft (int integer);
 void bblackright (int integer);
 void hclosefirescoop (int integer);
-void hclosescoop (int integer);
+void fclosescoop (int integer);
+void fopenscoop (int integer);
+void farmdown (int integer);
 int main()
 {
 //wait_for_light(0);
-//shut_down_in(115);
+shut_down_in(115);
 create_connect();
 sback(5);
-msleep(6000);
+//msleep(6000);
 sdrive(5);
 openscoop(1);
 armdown(1);
-rturn90(200);
+rturn90(195);
 blackleft(1);
 drive(16.5);
 closescoop(1);
-drive(2.5);
+drive(2);
 lturn90(82);
 blackleft(1);
 armup(1);
 openscoop(1);
 lturn90(90);
 armdown(1);
-linetrack(1524);
+linetrack(1424);
 camerafind(1);
 create_stop();
 create_disconnect();
@@ -87,7 +89,7 @@ void drive (int inches)
 void closescoop (int integer)
         {
         enable_servo(0);
-        set_servo_position(0,1865);
+        set_servo_position(0,1744);
         msleep(integer*250);
         disable_servo(0);
         }
@@ -108,7 +110,7 @@ void armup (int integer)
 void armdown (int integer)
         {
         enable_servo(2);
-        set_servo_position(2,204);
+        set_servo_position(2,250);
         msleep(integer*250);
         disable_servo(2);
         }
@@ -140,7 +142,7 @@ void linetrack (int ticks)
         create_stop();
         }
 void openmed (int integer)
-   		{
+   	{
         enable_servo(0);
         set_servo_position(0,1300);
         msleep(integer*250);
@@ -148,7 +150,7 @@ void openmed (int integer)
         }
 void camerafind (int integer)
         {
-   		int iteration_count=0;
+   	int iteration_count=0;
     	int update_errors=0;
     	camera_open_black();
     	while(iteration_count<20)
@@ -175,6 +177,7 @@ void camerafind (int integer)
         closescoop(1);
         drive(3.5);
         rturn90(5);
+        drive(1);
         back(3);
         camera_close();
         create_stop();
@@ -186,26 +189,26 @@ void camerafind (int integer)
         drive(7.5);
         armup(1);
         lturn90(5);
+        drive(3);
+        back(5);
+        lturn90(137);
+        drive(10);
+        openscoop(1);
+        drive(5.5);
+        rturn90(92);
+        back(2.5);
         drive(2.5);
-        //back(3);
-        //bblackleft(1);
-        //lturn90(137);
-        //armdown(1);
-        //drive(11);
-        //openscoop(1);
-        //armup(1);
-        //drive(3);
-        //rturn90(90);
-        //back(1);
-        //openfirescoop(1);
-        //armdown(1);
-        //hclosescoop(1);
+        fopenscoop(1);
+        openfirescoop(1);
+        farmdown(1);
+        fclosescoop(1);
+        back(2);
         create_stop();
         }
     	camera_close();
         }
 void back (int inches)
-		{
+	{
         set_create_distance(0);
         while (abs(get_create_distance())<inches*27.636)
         {
@@ -214,7 +217,7 @@ void back (int inches)
         create_stop();
         }
 void sback (int inches)
-		{
+	{
         set_create_distance(0);
         while (abs(get_create_distance())<inches*27.636)
         {
@@ -223,7 +226,7 @@ void sback (int inches)
         create_stop();
         }
 void sdrive (int inches)
-		{
+	{
         set_create_distance(0);
         while (abs(get_create_distance())<inches*27.636)
         {
@@ -232,21 +235,21 @@ void sdrive (int inches)
         create_stop();
         }
 void openfirescoop (int integer)
-		{
+	{
         enable_servo(1);
-        set_servo_position(1,1930);
+        set_servo_position(1,1890);
         msleep(integer*250);
         disable_servo(1);
         }
 void closefirescoop (int integer)
-		{
+	{
         enable_servo(1);
-        set_servo_position(1,78);
+        set_servo_position(1,26);
         msleep(integer*250);
         disable_servo(1);
         }
 void bblackleft (int integer)
-  		{
+  	{
         while (get_create_lcliff_amt()>1950)
         {
         create_drive_direct(-200,-200);
@@ -255,7 +258,7 @@ void bblackleft (int integer)
         }
         }
 void bblackright (int integer)
-  		{
+  	{
         while (get_create_rcliff_amt()>1950)
         {
         create_drive_direct(-200,-200);
@@ -266,14 +269,28 @@ void bblackright (int integer)
 void hclosefirescoop (int integer)
     	{
         enable_servo(1);
-        set_servo_position(1,1534);
+        set_servo_position(1,1829);
         msleep(integer*250);
         disable_servo(1);
         }
-void hclosescoop (int integer)
+void fclosescoop (int integer)
     	{
         enable_servo(0);
-        set_servo_position(0,1846);
+        set_servo_position(0,1756);
         msleep(integer*250);
         disable_servo(0);
+        }
+void fopenscoop (int integer)
+    	{
+        enable_servo(0);
+        set_servo_position(0,695);
+        msleep(integer*250);
+        disable_servo(0);
+        }
+void farmdown (int integer)
+	{
+        enable_servo(2);
+        set_servo_position(2,165);
+        msleep(integer*250);
+        disable_servo(2);
         }
