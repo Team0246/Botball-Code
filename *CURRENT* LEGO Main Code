@@ -85,20 +85,22 @@ void scoop()
 
 void pipetracking()
 {
-cmpc(0);
-while (gmpc(0)>-20000)
+    reverse(10);
+	cmpc(0);
+	while (analog(3) > 1400)
 	{
-    if (analog(3)<2650)
+    	if (analog(3)<2650)
     	{
-        motor(0,-40);
-        motor(3,-50);
+        	motor(0,-40);
+        	motor(3,-50);
     	}
-    else
+    	else
     	{
-        motor(0,-50);
-        motor(3,-40);
+        	motor(0,-50);
+        	motor(3,-40);
     	}
     }
+    reverse(30);
 }
 
 void waterCollection()
@@ -167,21 +169,30 @@ disable_servos();
     ao();
 }
 
-void pickUpValve()
+void upSlow(int start, int end, int val)
 {
-    
-    
+    int i = start;
+    while (i > end)
+    {
+        set_servo_position(0,i);
+        i = i - val;
+        //motor(0, -5);
+        //motor(3, -5);
+    }   
+}
+
+void pickUpValve()
+{   
     ao();
     enable_servos();
-    set_servo_position(0,1600); //down 560
+    set_servo_position(0,1700); //down
     msleep(1000);
     set_servo_position(1,1500); //open
     msleep(1000);
-
-
-    set_servo_position(1,150); //close
+    set_servo_position(1,120); //close
     msleep(1000);
-    set_servo_position(0,1500);
+    /*
+	set_servo_position(0,1500);
     msleep(100);
     set_servo_position(0,1000);
     msleep(100);
@@ -189,18 +200,11 @@ void pickUpValve()
     msleep(100);
     set_servo_position(0,280);
     msleep(100);
-/*    int i = 1800;
-    while (i > 50)
-    {
-        set_servo_position(0,i); //up
-        i = i - .3;
-        //motor(0, -5);
-        //motor(3, -5);
-
-    }
     */
-    msleep(2000);
+    //upSlow(1500, 280, .3);
+    set_servo_position(0,280);
     
+    msleep(2000);   
     disable_servos();
     reverse(7);
     ao();
@@ -223,22 +227,29 @@ void collectWater()
     lineFollow();
     pickUpValve();
     left(95); // face blue
+
     //waterCollection(); // water collection
     //untilWall(-1, 75); // go untill hit far wall
     //reverse(170);
-    //left(110); // turn toward utility zone    
-    //untilColor(1); //go until hit back wall
-    //forward(40);
-    ao();
-    
-    //enable_servos();
-    //set_servo_position(0,1400); //down 560
-    //msleep(1000);
-    //set_servo_position(1,1500); //open
-    //msleep(1000);
-    //disable_servos();
+
     
     //left(180); // turn to face playing field
+    
+}
+
+void dropoffvalve()
+{
+    left(110); // turn toward utility zone    
+    untilColor(1); //go until hit back wall
+    forward(40);
+    ao();
+    
+    enable_servos();
+    set_servo_position(0,1400); //down 560
+    msleep(1000);
+    set_servo_position(1,1500); //open
+    msleep(1000);
+    disable_servos();
 }
 
 void clawUp()
@@ -301,6 +312,9 @@ void start()
     left(90);
     ao();
     msleep(500);
+    enable_servos();
+    set_servo_position(0,600); //drop
+    disable_servos();
 }
 
 int main()
@@ -309,6 +323,7 @@ int main()
     start();
     collectWater();
     pipetracking();
+    dropoffvalve();
     //setPowerLines();
     //gasValve();
     //pickUpValve();
