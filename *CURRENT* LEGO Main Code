@@ -100,7 +100,7 @@ void pipetracking()
         	motor(3,-40);
     	}
     }
-    reverse(30);
+    reverse(35);
 }
 
 void waterCollection()
@@ -151,7 +151,7 @@ void lineFollow()
 enable_servos();
 set_servo_position(1,1750);
 disable_servos();
-    while(analog(2) < 2200)
+    while(analog(2) < 2300)
     {
         if (analog(0) > 1800)
         {
@@ -185,9 +185,9 @@ void pickUpValve()
 {   
     ao();
     enable_servos();
-    set_servo_position(0,1700); //down
-    msleep(1000);
     set_servo_position(1,1500); //open
+    msleep(1000);
+    set_servo_position(0,1800); //down
     msleep(1000);
     set_servo_position(1,120); //close
     msleep(1000);
@@ -239,7 +239,7 @@ void collectWater()
 
 void dropoffvalve()
 {
-    left(110); // turn toward utility zone    
+    left(100); // turn toward utility zone    
     untilColor(1); //go until hit back wall
     forward(40);
     ao();
@@ -249,6 +249,7 @@ void dropoffvalve()
     msleep(1000);
     set_servo_position(1,1500); //open
     msleep(1000);
+    set_servo_position(0,560);
     disable_servos();
 }
 
@@ -291,13 +292,24 @@ void setPowerLines()
 
 void gasValve()
 {
-    forward(10);
-    msleep(1000);
+    left(200);
+    while(analog(2) < 2200)
+    	{
+        motor(0,50);
+        motor(3,50);
+    	}
     pickUpValve();
-    left(180); //turn around
+    left(200); //turn around
     forward(50);
-    enable_servos();
-    set_servo_position(1,1500); //drop
+    left(10);
+    ao();
+    msleep(750);   
+    enable_servos();    
+    set_servo_position(0,1800);
+    msleep(1000);
+    set_servo_position(1,1500);
+    msleep(1000);
+    //drop
     disable_servos();
 }
 
@@ -319,13 +331,13 @@ void start()
 
 int main()
 {    
-    //wait_for_light(1);
+    wait_for_light(1);
     start();
     collectWater();
     pipetracking();
     dropoffvalve();
     //setPowerLines();
-    //gasValve();
+    gasValve();
     //pickUpValve();
     //lineFollow();
     
