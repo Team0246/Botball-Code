@@ -1,0 +1,16 @@
+#include <kipr/botball.h>
+
+
+int main()
+{
+        accel_calibrate();
+      	create_connect();
+    	set_create_distance(0);
+        while (get_create_distance()<950)
+        {
+        printf("sensor reads %d\n",accel_z());
+            create_drive_direct(100,100);
+            msleep(50);
+        }
+         return 0;
+}
