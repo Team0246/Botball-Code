@@ -1,0 +1,42 @@
+#include <kipr/botball.h>
+
+int main()
+{
+	create_connect();
+    int iteration_count=0;
+    int update_errors=0;
+    camera_open_black();
+    while(iteration_count<6)
+    {
+     if(!camera_update())
+     {
+         update_errors++;
+         continue;
+     }
+     if(iteration_count>1000)
+     {
+         iteration_count=0;
+         camera_close();
+         camera_open_black();
+     }
+        camera_update();
+         printf ("number of reds is %d\n",get_object_count(0));
+    	msleep(1000);
+        iteration_count++;
+    }
+    camera_close();
+    
+    
+    if (get_object_count(0) >0)
+    {
+        create_drive_direct (-100,-100);
+        msleep (250);
+    }
+    if(get_object_count(0)==0)
+    {
+        create_drive_direct (100,100);
+        msleep (250);
+    }
+    
+    return 0;
+}
