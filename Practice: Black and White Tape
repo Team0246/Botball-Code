@@ -1,0 +1,14 @@
+#include <kipr/botball.h>
+
+int main()
+{
+create_connect();
+while (get_create_lbump()==0)
+	{
+	printf("Sensor reads %d\n", get_create_lcliff_amt());
+    msleep(10);
+	}
+create_stop();
+create_disconnect();
+return (0);
+}
