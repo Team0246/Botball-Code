@@ -1,0 +1,24 @@
+#include <kipr/botball.h>
+
+int main()
+{
+     {
+        accel_calibrate();
+      	create_connect();
+    	set_create_distance(0);
+        while (accel_z()>-1000)
+        {
+        if (get_create_rfcliff_amt()>1950)
+        {
+        create_drive_direct(150,50);
+        msleep(10);
+        }
+        else
+        {
+        create_drive_direct(50,150);
+        msleep(10);
+        }
+        }
+        create_stop();
+        }
+}
