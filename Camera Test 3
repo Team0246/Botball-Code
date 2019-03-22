@@ -1,0 +1,193 @@
+#include <kipr/botball.h>
+void blackleft (int integer);
+void rturn90 (int degrees);
+void blackright (int integer);
+void drive (int inches);
+void closescoop (int integer);
+void openscoop (int integer);
+void armup (int integer);
+void armdown (int integer);
+void lturn90 (int degrees);
+void linetrack (int integer);
+void openmed (int integer);
+void camerafind (int integer);
+void back (int inches);
+void sback (int inches);
+void sdrive (int inches);
+int main()
+  {
+        camera_open();
+        camera_update();
+        if (get_object_count(0)=0)
+        {
+        armup(1);
+        closescoop(1);
+        drive(3.5);
+        back(3);
+        camera_close();
+        create_stop();
+        }
+        else
+        {
+        closescoop(1);
+        rturn90(55);
+        drive(8);
+        armup(1);
+        lturn90(10);
+        drive(2.5);
+        back(4);
+        camera_close();
+        create_stop();
+        }
+        }
+void blackleft (int integer)
+        {
+        while (get_create_lcliff_amt()>1950)
+        {
+        create_drive_direct(200,200);
+        msleep(integer*10);
+        create_stop();
+        }
+        }
+void rturn90 (int degrees)
+        {
+        set_create_total_angle(0);
+        while (abs(get_create_total_angle())<1.033*degrees)
+        {
+        create_drive_direct(200,-200);
+        }
+        create_stop();
+        }
+void blackright (int integer)
+        {
+        while (get_create_rcliff_amt()>1950)
+        {
+        create_drive_direct(200,200);
+        msleep(integer*10);
+        create_stop();
+        }
+        }
+void drive (int inches)
+        {
+        set_create_distance(0);
+        while (abs(get_create_distance())<inches*27.636)
+        {
+        create_drive_direct(250,250);
+        }
+        create_stop();
+        }
+void closescoop (int integer)
+        {
+        enable_servo(3);
+        set_servo_position(3,1865);
+        msleep(integer*250);
+        disable_servo(3);
+        }
+void openscoop (int integer)
+        {
+        enable_servo(3);
+        set_servo_position(3,948);
+        msleep(integer*250);
+        disable_servo(3);
+        }
+void armup (int integer)
+        {
+        enable_servo(2);
+        set_servo_position(2,1400);
+        msleep(integer*250);
+        disable_servo(2);
+        }
+void armdown (int integer)
+        {
+        enable_servo(2);
+        set_servo_position(2,250);
+        msleep(integer*250);
+        disable_servo(2);
+        }
+void lturn90 (int degrees)
+        {
+        set_create_total_angle(0);
+        while (abs(get_create_total_angle())<1.033*degrees)
+        {
+        create_drive_direct(-200,200);
+        }
+        create_stop();
+        }
+void linetrack (int integer)
+        {
+    	set_create_distance(0);
+        while (abs(get_create_distance())<1524)
+        {
+        if (get_create_rfcliff_amt()>1950)
+        {
+        create_drive_direct(150,50);
+        msleep(integer*10);
+        }
+        else
+        {
+        create_drive_direct(50,150);
+        msleep(10);
+        }
+        }
+        create_stop();
+        }
+void openmed (int integer)
+   		{
+        enable_servo(3);
+        set_servo_position(3,1300);
+        msleep(integer*250);
+        disable_servo(3);
+        }
+void camerafind (int integer)
+        {
+        camera_open();
+        camera_update();
+        if (get_object_count(0)==0*integer)
+        {
+        armup(1);
+        closescoop(1);
+        drive(3.5);
+        back(3);
+        camera_close();
+        create_stop();
+        }
+        else
+        {
+        closescoop(1);
+        rturn90(55);
+        drive(8);
+        armup(1);
+        lturn90(10);
+        drive(2.5);
+        back(4);
+        camera_close();
+        create_stop();
+        }
+        }
+void back (int inches)
+		{
+        set_create_distance(0);
+        while (abs(get_create_distance())<inches*27.636)
+        {
+        create_drive_direct(-250,-250);
+        }
+        create_stop();
+        }
+void sback (int inches)
+		{
+        set_create_distance(0);
+        while (abs(get_create_distance())<inches*27.636)
+        {
+        create_drive_direct(-100,-100);
+        }
+        create_stop();
+        }
+void sdrive (int inches)
+		{
+        set_create_distance(0);
+        while (abs(get_create_distance())<inches*27.636)
+        {
+        create_drive_direct(100,100);
+        }
+        create_stop();
+        }
