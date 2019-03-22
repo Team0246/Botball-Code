@@ -1,0 +1,32 @@
+#include <kipr/botball.h>
+
+int main()
+        {
+        create_connect();
+        camera_open_black();
+    msleep(1000);
+        camera_update();
+    	printf("object is at %d\n", get_object_center_x(0,0));
+        if (get_object_center_x(0,0)>80)
+        {
+            printf("I see yellow on right\n");
+        //closescoop(1);
+        //rturn90(55);
+        //drive(8);
+        //armup(1);
+        //lturn90(10);
+        //drive(1);
+        //back(2);
+        camera_close();
+        create_stop();
+        }
+        else
+        {
+          printf("Nothing on right\n");  
+        //armup(1);
+        //closescoop(1);
+       //drive(2);
+        camera_close();
+        create_stop();
+        }
+        }
