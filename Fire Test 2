@@ -1,0 +1,38 @@
+#include <kipr/botball.h>
+
+int main()
+{
+    	create_connect();
+    	enable_servos();
+        set_servo_position(0,948);
+        msleep(1000);
+        set_servo_position(2,100);
+        msleep(1000);
+    	set_servo_position(0,1800);
+        msleep(1000);
+    	create_drive_direct(-200,-200);
+    	msleep(500);
+    	create_stop();
+    	set_servo_position(0,948);
+        msleep(1000);
+    	set_servo_position(2,100);
+        msleep(1000);
+    	create_drive_direct(200,200);
+    	msleep(500);
+    	create_stop();
+    	set_servo_position(0,1800);
+        msleep(1000);
+    	create_drive_direct(-200,-200);
+    	msleep(500);
+    	create_stop();
+    	create_drive_direct(200,200);
+    	msleep(500);
+    	create_stop();
+    	set_servo_position(0,1800);
+        msleep(1000);
+    	create_drive_direct(-200,-200);
+    	msleep(500);
+    	create_stop();
+        disable_servos();
+    	return 0;
+}
