@@ -1,3 +1,5 @@
+
+   
 #include <kipr/botball.h>
 
 void forward(int cm)
@@ -45,9 +47,9 @@ void left(int deg)
 void reset()
 {
     enable_servos();
-    set_servo_position(0, 1800);
+    set_servo_position(0,280);
     msleep(500);
-    set_servo_position(1,1900);
+    set_servo_position(1,1800);
     msleep(500);
     disable_servos();
 }
@@ -151,7 +153,7 @@ void lineFollow()
 enable_servos();
 set_servo_position(1,1750);
 disable_servos();
-    while(analog(2) < 2300)
+    while(analog(2) < 2250)
     {
         if (analog(0) > 1800)
         {
@@ -185,9 +187,9 @@ void pickUpValve()
 {   
     ao();
     enable_servos();
-    set_servo_position(1,1500); //open
+    set_servo_position(1,1700); //open
     msleep(1000);
-    set_servo_position(0,1800); //down
+    set_servo_position(0,1850); //down
     msleep(1000);
     set_servo_position(1,120); //close
     msleep(1000);
@@ -239,15 +241,15 @@ void collectWater()
 
 void dropoffvalve()
 {
-    left(100); // turn toward utility zone    
+    left(95); // turn toward utility zone    
     untilColor(1); //go until hit back wall
     forward(40);
     ao();
     
     enable_servos();
-    set_servo_position(0,1400); //down 560
+    set_servo_position(0,1500); //down 560
     msleep(1000);
-    set_servo_position(1,1500); //open
+    set_servo_position(1,1700); //open
     msleep(1000);
     set_servo_position(0,560);
     disable_servos();
@@ -292,7 +294,9 @@ void setPowerLines()
 
 void gasValve()
 {
-    left(200);
+    left(180);
+    ao();
+    reset();
     while(analog(2) < 2200)
     	{
         motor(0,50);
@@ -315,7 +319,7 @@ void gasValve()
 
 void start()
 {
-    msleep(2000);
+    msleep(500);
     forward(10);
     ao();
     msleep(500);
@@ -331,7 +335,8 @@ void start()
 
 int main()
 {    
-    wait_for_light(1);
+   // wait_for_light(1);
+    reset();
     start();
     collectWater();
     pipetracking();
@@ -344,3 +349,4 @@ int main()
     ao();
     return 0;
 }
+
