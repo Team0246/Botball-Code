@@ -46,7 +46,7 @@ void left(int deg)
 
 void newstart()
 {
-    msleep(1000);
+    msleep(500);
     forward(5);
     ao();
     msleep(500);
@@ -61,10 +61,10 @@ void newstart()
     }
     forward(2);
     ao();
-    msleep(1000);
+    msleep(500);
     right(50);
     ao();
-    msleep(1000);
+    msleep(500);
 	ao();
 }
 
@@ -356,9 +356,9 @@ void setPowerLines()
     motor(0,25);
     motor(3,26);
     msleep(3000);
-    motor(0,-25);
-    motor(3,25);
-    msleep(400);
+    motor(0,-15);
+    motor(3,15);
+    msleep(700);
     motor(0,25);
     motor(3,-25);
     msleep(500);
@@ -369,7 +369,7 @@ void setPowerLines()
 
 void gasValve()
 {
-    left(182);
+    left(180);
     ao();
     reset();
     while(analog(2) < 2250)
@@ -388,7 +388,7 @@ void gasValve()
     set_servo_position(0,280);
     disable_servos();
     pickUpValve();
-    left(208); //turn around
+    left(207); //turn around
     forward(55);
     left(10);
     ao();
@@ -443,7 +443,7 @@ void start()
 
 int main()
 {    
-    //wait_for_light(1);
+    wait_for_light(1);
     reset();
     shut_down_in(118);
     //start();
