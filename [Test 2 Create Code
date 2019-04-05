@@ -1,0 +1,325 @@
+#include <kipr/botball.h>
+
+void blackleft (int integer);
+void rturn90 (int degrees);
+void blackright (int integer);
+void drive (int inches);
+void closescoop (int integer);
+void openscoop (int integer);
+void armup (int integer);
+void armdown (int integer);
+void lturn90 (int degrees);
+void linetrack (int ticks);
+void openmed (int integer);
+void camerafind (int integer);
+void back (int inches);
+void sback (int inches);
+void sdrive (int inches);
+void openfirescoop (int integer);
+void closefirescoop (int integer);
+void bblackleft (int integer);
+void bblackright (int integer);
+void hclosefirescoop (int integer);
+void fclosescoop (int integer);
+void fopenscoop (int integer);
+void farmdown (int integer);
+void lblackrturn (int integer);
+void fbblackleft (int integer);
+void fback (int inches);
+void rblacklturn (int integer);
+int main()
+{
+//wait_for_light(0);
+shut_down_in(115);
+create_connect();
+sback(5);
+msleep(6000);
+sdrive(5);
+openscoop(1);
+armdown(1);
+rturn90(195);
+blackleft(1);
+drive(16.5);
+closescoop(1);
+drive(2);
+lturn90(82);
+blackleft(1);
+armup(1);
+openscoop(1);
+lturn90(90);
+armdown(1);
+linetrack(1479);
+camerafind(1);
+create_stop();
+create_disconnect();
+return (0);
+}
+void blackleft (int integer)
+        {
+        while (get_create_lcliff_amt()>1950)
+        {
+        create_drive_direct(200,200);
+        msleep(integer*10);
+        create_stop();
+        }
+        }
+void rturn90 (int degrees)
+        {
+        set_create_total_angle(0);
+        while (abs(get_create_total_angle())<1.033*degrees)
+        {
+        create_drive_direct(200,-200);
+        }
+        create_stop();
+        }
+void blackright (int integer)
+        {
+        while (get_create_rcliff_amt()>1950)
+        {
+        create_drive_direct(200,200);
+        msleep(integer*10);
+        create_stop();
+        }
+        }
+void drive (int inches)
+        {
+        set_create_distance(0);
+        while (abs(get_create_distance())<inches*27.636)
+        {
+        create_drive_direct(250,250);
+        }
+        create_stop();
+        }
+void closescoop (int integer)
+        {
+        enable_servo(0);
+        set_servo_position(0,1744);
+        msleep(integer*250);
+        disable_servo(0);
+        }
+void openscoop (int integer)
+        {
+        enable_servo(0);
+        set_servo_position(0,948);
+        msleep(integer*250);
+        disable_servo(0);
+        }
+void armup (int integer)
+        {
+        enable_servo(2);
+        set_servo_position(2,1400);
+        msleep(integer*250);
+        disable_servo(2);
+        }
+void armdown (int integer)
+        {
+        enable_servo(2);
+        set_servo_position(2,180);
+        msleep(integer*250);
+        disable_servo(2);
+        }
+void lturn90 (int degrees)
+        {
+        set_create_total_angle(0);
+        while (abs(get_create_total_angle())<1.033*degrees)
+        {
+        create_drive_direct(-200,200);
+        }
+        create_stop();
+        }
+void linetrack (int ticks)
+        {
+    	set_create_distance(0);
+        while (abs(get_create_distance())<ticks*1)
+        {
+        if (get_create_rfcliff_amt()>1950)
+        {
+        create_drive_direct(150,50);
+        msleep(10);
+        }
+        else
+        {
+        create_drive_direct(50,150);
+        msleep(10);
+        }
+        }
+        create_stop();
+        }
+void openmed (int integer)
+   		{
+        enable_servo(0);
+        set_servo_position(0,1300);
+        msleep(integer*250);
+        disable_servo(0);
+        }
+void camerafind (int integer)
+        {
+   		int iteration_count=0;
+    	int update_errors=0;
+    	camera_open_black();
+    	while(iteration_count<20)
+    	{
+    	if(!camera_update())
+     	{
+        update_errors++;
+        continue;
+     	}
+     	if(iteration_count>1000)
+     	{
+        iteration_count=0;
+        camera_close();
+        camera_open_black();
+     	}
+        camera_update();
+        printf ("number of reds is %d\n",get_object_count(0));
+    	msleep(100);
+        iteration_count++;
+    	}
+    	if (get_object_count(0)==0)
+        {
+        armup(1);
+        closescoop(1);
+        drive(3.5);
+        rturn90(5);
+        drive(1);
+        back(3);
+        camera_close();
+        create_stop();
+        }
+       	if (get_object_count(0)>0)
+        {
+        closescoop(1);
+        rturn90(58);
+        drive(7.5);
+        armup(1);
+        lturn90(5);
+        drive(3);
+        back(5);
+        camera_close();
+    	create_stop();
+        }
+    	camera_close();
+        }
+void back (int inches)
+		{
+        set_create_distance(0);
+        while (abs(get_create_distance())<inches*27.636)
+        {
+        create_drive_direct(-250,-250);
+        }
+        create_stop();
+        }
+void sback (int inches)
+		{
+        set_create_distance(0);
+        while (abs(get_create_distance())<inches*27.636)
+        {
+        create_drive_direct(-100,-100);
+        }
+        create_stop();
+        }
+void sdrive (int inches)
+		{
+        set_create_distance(0);
+        while (abs(get_create_distance())<inches*27.636)
+        {
+        create_drive_direct(100,100);
+        }
+        create_stop();
+        }
+void openfirescoop (int integer)
+		{
+        enable_servo(1);
+        set_servo_position(1,1890);
+        msleep(integer*250);
+        disable_servo(1);
+        }
+void closefirescoop (int integer)
+		{
+        enable_servo(1);
+        set_servo_position(1,26);
+        msleep(integer*250);
+        disable_servo(1);
+        }
+void bblackleft (int integer)
+  		{
+        while (get_create_lcliff_amt()>1950)
+        {
+        create_drive_direct(-200,-200);
+        msleep(integer*10);
+        create_stop();
+        }
+        }
+void bblackright (int integer)
+  		{
+        while (get_create_rcliff_amt()>1950)
+        {
+        create_drive_direct(-200,-200);
+        msleep(integer*10);
+        create_stop();
+        }
+        }
+void hclosefirescoop (int integer)
+    	{
+        enable_servo(1);
+        set_servo_position(1,900);
+        msleep(integer*250);
+        disable_servo(1);
+        }
+void fclosescoop (int integer)
+    	{
+        enable_servo(0);
+        set_servo_position(0,1756);
+        msleep(integer*250);
+        disable_servo(0);
+        }
+void fopenscoop (int integer)
+    	{
+        enable_servo(0);
+        set_servo_position(0,695);
+        msleep(integer*250);
+        disable_servo(0);
+        }
+void farmdown (int integer)
+		{
+        enable_servo(2);
+        set_servo_position(2,216);
+        msleep(integer*250);
+        disable_servo(2);
+        }
+void lblackrturn (int integer)
+		{
+        while (get_create_lcliff_amt()>1950)
+        {
+        create_drive_direct(200,-200);
+        msleep(integer*10);
+        create_stop();
+        }
+        }
+void fbblackleft (int integer)
+    	{
+        while (get_create_lcliff_amt()>1950)
+        {
+        create_drive_direct(-400,-400);
+        msleep(integer*10);
+        create_stop();
+        }
+        }
+void fback (int inches)
+    	{
+        set_create_distance(0);
+        while (abs(get_create_distance())<inches*27.636)
+        {
+        create_drive_direct(-400,-400);
+        }
+        create_stop();
+        }
+void rblacklturn (int integer)
+		{
+        while (get_create_rcliff_amt()>1950)
+        {
+        create_drive_direct(-200,200);
+        msleep(integer*10);
+        create_stop();
+        }
+        }
