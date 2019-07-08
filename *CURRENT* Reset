@@ -1,0 +1,24 @@
+#include <kipr/botball.h>
+
+void closescoop (int integer);
+void armup (int integer);
+int main()
+{
+armup(1);
+closescoop(1);
+return (0);
+}
+void closescoop (int integer)
+        {
+        enable_servo(0);
+        set_servo_position(0,1744);
+        msleep(integer*250);
+        disable_servo(0);
+        }
+void armup (int integer)
+        {
+        enable_servo(2);
+        set_servo_position(2,1400);
+        msleep(integer*250);
+        disable_servo(2);
+        }
