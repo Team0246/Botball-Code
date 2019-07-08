@@ -43,7 +43,7 @@ int main()
     drive(16.5);
     closescoop(1);
     drive(3);
-    lturn90(75);
+    lturn90(70);
     blackleft(1);
     armup(1);
     openscoop(1);
