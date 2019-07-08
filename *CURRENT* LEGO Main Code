@@ -107,7 +107,7 @@ void pipetracking()
 	cmpc(0);
 	while (analog(3)>500)
 	{
-    if (analog(3)<2650)
+    if (analog(3)<2050)
     {
     motor(0,-40);
     motor(3,-50);
@@ -164,7 +164,7 @@ void lineFollow()
 	enable_servos();
 	set_servo_position(1,1750);
 	disable_servos();
-    while(analog(2) < 2400)
+    while(analog(2) < 2500)
     {
     if (analog(0) > 1800)
   	{
@@ -209,7 +209,7 @@ void pickUpValve()
     msleep(1000);
     set_servo_position(0,1413); //down
     msleep(1000);
-    set_servo_position(1,100); //close
+    set_servo_position(1,30); //close
     msleep(1000);
     /*
 	set_servo_position(0,1500);
@@ -287,7 +287,7 @@ void setPowerLines()
 	{
     ao();
     reset();
-    while(analog(2) < 2700)
+    while(analog(2) < 2600)
     {
    	if (analog(0) > 1800)
    	{
@@ -303,7 +303,7 @@ void setPowerLines()
    	}
     }
     ao();
-    right(89);
+    right(91);
     ao();
     motor(0,-49);
     motor(3,-50);
@@ -345,7 +345,7 @@ void setPowerLines()
 	}
 void gasValve()
 	{
-    left(172.6); //turns left toward gasvalve
+    left(176); //turns left toward gasvalve
     ao();
     reset(); //resets servos
     while(analog(2) < 2300) //stops at gasvalve 
@@ -364,7 +364,7 @@ void gasValve()
     set_servo_position(0,200);
     disable_servos();
     pickUpValve(); //picks up gasvalve
-    left(190); //turns around
+    left(193); //turns around
     forward(55); //goes to utility zone
     left(10); //turns left
     ao();
@@ -376,7 +376,7 @@ void gasValve()
     msleep(1000);
     motor(0,50);
     motor(3,50);
-    msleep(1000);
+    msleep(500);
     reset();
 	while(analog(4)<1800)
    	{
@@ -420,7 +420,7 @@ void start()
     disable_servos();
 	}
 int main()
-{    
+{
 wait_for_light(1);
 reset();
 shut_down_in(118);
